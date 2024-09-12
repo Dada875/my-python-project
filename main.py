@@ -1,2 +1,3 @@
-print('Hello, Discord!')
-print("あなたと会えて嬉しいです")
+@bot.command()
+async def ping(ctx):
+    await ctx.send("ポン！")
