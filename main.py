@@ -1,4 +1,5 @@
 import os
+import discord  # discord.py ライブラリをインポート
 from dotenv import load_dotenv
 from discord.ext import commands
 from utils.logging_setup import setup_logging
@@ -7,8 +8,16 @@ from utils.logging_setup import setup_logging
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
-# Botのインスタンスを作成
-bot = commands.Bot(command_prefix="!")
+# Intentsを設定
+intents = discord.Intents.default()
+intents.messages = True  # メッセージ関連のイベントを受け取るために有効化
+
+# Botの初期化
+bot = commands.Bot(command_prefix="!", intents=intents)
+
+@bot.event
+async def on_ready():
+    print(f'Logged in as {bot.user}')
 
 # コマンドをロード
 for filename in os.listdir('./commands'):
