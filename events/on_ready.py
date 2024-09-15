@@ -1,13 +1,16 @@
 from discord.ext import commands
 
 class ReadyEvent(commands.Cog):
+    """Botが起動したときのイベントを処理するCog"""
+
     def __init__(self, bot):
         self.bot = bot
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print(f'{self.bot.user} has connected!')  # 起動時にメッセージを出力
+        """Botが起動したときに呼び出されます。"""
+        print(f'{self.bot.user} has connected!')
 
-def setup(bot):
-    bot.add_cog(ReadyEvent(bot))  # Botにこのイベントを追加
-    
+async def setup(bot):
+    """Cogをセットアップします。"""
+    await bot.add_cog(ReadyEvent(bot))
